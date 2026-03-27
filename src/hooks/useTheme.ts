@@ -5,7 +5,7 @@ export function useTheme(): ThemeContextValue {
   const context = useContext(ThemeContext);
 
   if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw Error('useTheme must be used within a ThemeContextProvider');
   }
 
   return context;

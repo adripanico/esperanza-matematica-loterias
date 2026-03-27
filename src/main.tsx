@@ -1,13 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
+import { QueryContextProvider } from './contexts/QueryContextProvider.tsx';
 import { ThemeContextProvider } from './contexts/ThemeContextProvider.tsx';
-import './index.css';
+import './main.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeContextProvider>
-      <App />
+      <QueryContextProvider>
+        <App />
+      </QueryContextProvider>
     </ThemeContextProvider>
   </StrictMode>,
 );

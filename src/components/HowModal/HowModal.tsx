@@ -1,6 +1,8 @@
 import { useRef, type ComponentProps, type FC } from 'react';
 import { useActionOnClickOutside } from '../../hooks/useActionOnClickOutside';
 
+import styles from './HowModal.module.css';
+
 interface IHowModalProps extends ComponentProps<'div'> {
   close: () => void;
 }
@@ -11,13 +13,11 @@ export const HowModal: FC<IHowModalProps> = ({ close }) => {
   useActionOnClickOutside([modalRef], close);
 
   return (
-    <div className="modal">
-      <div className="modal-card" ref={modalRef}>
-        <div className="modal-top">
+    <div className={styles.HowModal}>
+      <div className={styles.content} ref={modalRef}>
+        <div className={styles.header}>
           <h2>Cómo se calcula la esperanza matemática</h2>
-          <button className="close-button" onClick={close}>
-            Cerrar
-          </button>
+          <button onClick={close}>Cerrar</button>
         </div>
         <p>
           Para cada sorteo se suma el valor esperado de todas sus categorías:{' '}

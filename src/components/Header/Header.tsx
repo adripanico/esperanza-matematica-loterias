@@ -1,23 +1,24 @@
 import { useState } from 'react';
+import { useQuery } from '../../hooks/useQuery';
 import { useTheme } from '../../hooks/useTheme';
-import { HowModal } from './HowModal';
+
+import { HowModal } from '../HowModal/HowModal';
+import styles from './Header.module.css';
 
 export const Header = () => {
+  const [showHowModal, setShowHowModal] = useState(false);
+
   const { currentTheme, toggleTheme } = useTheme();
 
-  const [showHowModal, setShowHowModal] = useState(false);
+  const { loadingStatus, loadData } = useQuery();
 
   return (
     <>
-      <header className="header">
-        <div className="header-top">
+      <header className={styles.Header}>
+        <div className={styles.title}>
           <h1>Esperanza matemática de loterías</h1>
-          <div className="header-actions">
-            <button
-              id="theme-button"
-              className="secondary"
-              onClick={toggleTheme}
-            >
+          <div className={styles.actions}>
+            <button className="secondary" onClick={toggleTheme}>
               Modo {currentTheme === 'dark' ? 'claro' : 'oscuro'}
             </button>
             <button className="secondary" onClick={() => setShowHowModal(true)}>
@@ -30,8 +31,8 @@ export const Header = () => {
           y Apuestas del Estado (SELAE) y ordena los sorteos por esperanza
           matemática estimada según la apuesta mínima.
         </p>
-        <button id="reload" type="button">
-          Recargar
+        <button disabled={loadingStatus === 'loading'} onClick={loadData}>
+          {loadingStatus === 'loading' ? 'Cargando...' : 'Recargar'}
         </button>
       </header>
 
