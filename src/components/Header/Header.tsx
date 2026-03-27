@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useQuery } from '../../hooks/useQuery';
 import { useTheme } from '../../hooks/useTheme';
 
+import { loadGamesRanking } from '../../store/gamesRanking/gamesRanking.actions';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { HowModal } from '../HowModal/HowModal';
 import styles from './Header.module.css';
 
@@ -10,7 +11,11 @@ export const Header = () => {
 
   const { currentTheme, toggleTheme } = useTheme();
 
-  const { loadingStatus, loadData } = useQuery();
+  const dispatch = useAppDispatch();
+
+  const loadingStatus = useAppSelector(
+    (state) => state.gamesRanking.loadingStatus,
+  );
 
   return (
     <>
@@ -31,7 +36,10 @@ export const Header = () => {
           y Apuestas del Estado (SELAE) y ordena los sorteos por esperanza
           matemática estimada según la apuesta mínima.
         </p>
-        <button disabled={loadingStatus === 'loading'} onClick={loadData}>
+        <button
+          disabled={loadingStatus === 'loading'}
+          onClick={() => dispatch(loadGamesRanking())}
+        >
           {loadingStatus === 'loading' ? 'Cargando...' : 'Recargar'}
         </button>
       </header>

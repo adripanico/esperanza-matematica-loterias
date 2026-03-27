@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import { Header } from './components/Header/Header';
 import { RankingTable } from './components/RankingTable/RankingTable';
+import { loadGamesRanking } from './store/gamesRanking/gamesRanking.actions';
+import { useAppDispatch } from './store/store';
 
 // const details = document.getElementById('details');
 
@@ -142,17 +145,6 @@ import { RankingTable } from './components/RankingTable/RankingTable';
 //  */
 // function formatNumber(value) {
 //   return new Intl.NumberFormat('es-ES').format(Math.round(value || 0));
-// }
-
-// /**
-//  * Devuelve la clase visual adecuada para la esperanza neta según su signo o disponibilidad.
-//  */
-// function getNetClassName(value) {
-//   if (value == null) {
-//     return 'na';
-//   }
-
-//   return value >= 0 ? 'positive' : 'negative';
 // }
 
 // /**
@@ -519,11 +511,11 @@ import { RankingTable } from './components/RankingTable/RankingTable';
 // }
 
 function App() {
-  // const { loadData } = useQuery();
+  const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   loadData();
-  // }, [loadData]);
+  useEffect(() => {
+    dispatch(loadGamesRanking());
+  }, [dispatch]);
 
   return (
     <>

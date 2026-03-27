@@ -1,9 +1,12 @@
-import type { IGame } from '../models/game';
-import type { IGameRanking } from '../models/gameRanking';
-import type { ILiveEntry } from '../models/liveEntry';
-import type { IParsedGame } from '../models/parsedGame';
-import { liveSectionBoundaries, sectionBoundaries } from './constants';
-import { extractSpanishWeekday, formatSpanishDate } from './i18n';
+import type { IGame } from '../../models/game';
+import type { IGameRanking } from '../../models/gameRanking';
+import type { ILiveEntry } from '../../models/liveEntry';
+import type { IParsedGame } from '../../models/parsedGame';
+import {
+  liveSectionBoundaries,
+  sectionBoundaries,
+} from '../../utils/constants';
+import { extractSpanishWeekday, formatSpanishDate } from '../../utils/i18n';
 
 /**
  * Limpia el markdown devuelto por el proxy para dejar un texto plano más fácil de parsear.
@@ -395,8 +398,6 @@ export function calculateExpectation(game: IParsedGame): IGameRanking {
 export function compareGamesByExpectation(a: IGameRanking, b: IGameRanking) {
   const aValue = a.expectedNet ?? Number.NEGATIVE_INFINITY;
   const bValue = b.expectedNet ?? Number.NEGATIVE_INFINITY;
-
-  console.log(aValue, bValue);
 
   if (aValue === bValue) {
     return a.name.localeCompare(b.name, 'es');
