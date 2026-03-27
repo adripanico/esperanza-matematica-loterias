@@ -20,21 +20,23 @@ export const gamesRankingReducer = createReducer(
   gamesRankingInitialState,
   (builder) => {
     builder.addCase(loadGamesRanking.pending, (state) => {
+      state.loadError = undefined;
       state.loadingStatus = 'loading';
+      state.ranking = [];
     });
 
     builder.addCase(loadGamesRanking.rejected, (state, action) => {
+      state.lastLoadTime = new Date().toLocaleString('es-ES');
+      state.loadError = action.error.message;
       state.loadingStatus = 'error';
       state.ranking = [];
-      state.loadError = action.error.message;
-      state.lastLoadTime = new Date().toLocaleString('es-ES');
     });
 
     builder.addCase(loadGamesRanking.fulfilled, (state, action) => {
+      state.lastLoadTime = new Date().toLocaleString('es-ES');
+      state.loadError = undefined;
       state.loadingStatus = 'success';
       state.ranking = action.payload;
-      state.loadError = undefined;
-      state.lastLoadTime = new Date().toLocaleString('es-ES');
     });
   },
 );

@@ -293,7 +293,7 @@ function extractWinnersFromLine(line: string) {
  * Calcula el retorno esperado y la esperanza neta a partir de premios, probabilidades y apuesta mínima.
  */
 export function calculateExpectation(game: IParsedGame): IGameRanking {
-  if (game.fixedRows) {
+  if (game.fixedRows.length > 0) {
     const rows = game.fixedRows.map((row) => ({
       label: row.label,
       prize: row.prize,
